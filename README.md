@@ -1,4 +1,4 @@
-### EXPENSIFY APP
+# EXPENSIFY APP
 
 React App that is build throughout the course ["The Complete React Web Developer Course (with Redux) by Andrew Mead"](https://www.udemy.com/react-2nd-edition/)
 
@@ -20,4 +20,4 @@ Need to install [Node.js](https://nodejs.org/en/)  with [NPM](https://www.npmjs.
 (https://www.npmjs.com/package/validator)
 
 
-# Thanks to [Anrew Mead](https://twitter.com/andrew_j_mead)
+### Thanks to [Anrew Mead](https://twitter.com/andrew_j_mead)
