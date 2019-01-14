@@ -39,20 +39,21 @@ const setTextFilter = (text = '') => ({
   text
 });
 // SORT_BY_DATE
-const sortByDate = (sortBy = 'date') => ({
+const sortByDate = () => ({
   type: 'SORT_BY_DATE', 
-  sortBy
 });
+
 // SORT_BY_AMOUNT
-const sortByAmount = (sortBy = 'amount') => ({
+const sortByAmount = () => ({
   type: 'SORT_BY_DATE',
-  sortBy
 });
+
 // SET_START_DATE
 const setStartDate = (startDate) => ({
   type: 'SET_START_DATE',
   startDate
 });
+
 // SET_END_DATE
 const setEndDate = (endDate) => ({
   type: 'SET_END_DATE',
@@ -81,7 +82,7 @@ const expensesReducer = (state = expenseReducerDefaultState, action) =>  {
           };
         } else  {
           return expense;
-        }
+        };
       });
     default: 
       return state;
@@ -129,6 +130,26 @@ const filtersReducer = (state= filterReducerDefaultState, action) =>  {
   }
 };
 
+
+//Get visible expenses
+const getVisibleExpenses = (expenses, { text, sortBy, startDate, endDate }) =>  {
+  return expenses.filter((expense)=> {
+    const startDateMatch = typeof startDate !== 'number' || expense.createdAt >= startDate;
+    const endDateMatch = typeof endDate !== 'number' || expense.createdAt <= endDate;
+    const textMatch = expense.description.toLowerCase().includes(text.toLowerCase());
+
+    return startDateMatch && endDateMatch && textMatch;
+  }).sort((a, b)=> {
+    if(sortBy === 'date') {
+      return a.createdAt < b.createdAt ? 1 : -1;
+    }
+    if (sortBy === 'amount') {
+      return a.amount < b.amount ? 1 : -1;
+    }
+  });
+};
+
+
 //Store creation
 const store = createStore(
   combineReducers({
@@ -138,24 +159,26 @@ const store = createStore(
   );
 
 store.subscribe(() => {
-  console.log(store.getState());
+  const state = store.getState();
+  const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
+  console.log(visibleExpenses);
 });
 
-const expenseOne = store.dispatch(addExpense({ description: 'Rent', amount:100 }));
-const expenseTwo = store.dispatch(addExpense({ description: 'Coffee', amount:300 }));
+const expenseOne = store.dispatch(addExpense({ description: 'Rent', amount:100, createdAt: -21000 }));
+const expenseTwo = store.dispatch(addExpense({ description: 'Coffee', amount:400, createdAt: 1000 }));
 
 // store.dispatch(removeExpense({ id: expenseOne.expense.id }));
 // store.dispatch(editExpense(expenseTwo.expense.id, { amount: 5 }));
 
-// store.dispatch(setTextFilter('rent'));
-// store.dispatch(setTextFilter());
 
-// store.dispatch(sortByAmount()); //amount
+// store.dispatch(setTextFilter('rent'));
+
+store.dispatch(sortByAmount()); //amount
 // store.dispatch(sortByDate()); //date
 
-store.dispatch(setStartDate(125)); // startDate 125
-store.dispatch(setStartDate());    //startDate undefined
-store.dispatch(setEndDate(1250));  // endDate 1250
+// store.dispatch(setStartDate(125)); // startDate 125
+// store.dispatch(setStartDate());    //startDate undefined
+// store.dispatch(setEndDate(1250));  // endDate 1250
 
 
 const demoState =  {
