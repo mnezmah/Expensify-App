@@ -1,11 +1,9 @@
 import React from 'react';
-import expenses from '../selectors/expenses';
 
-const ExpenseListItem = (props) => (
+const ExpenseListItem = ({ description, amount, createdAt}) => (
   <div>
-      {expenses.description}
-      {expenses.amount}
-      {expenses.createdAt}
+      <h3>{description}</h3>
+      <p>{amount} - {createdAt}</p>
   </div>
 );
 
