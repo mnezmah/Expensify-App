@@ -4,6 +4,9 @@
   "main": "index.js",
   "author": "Nezmah",
   "license": "MIT",
+  "engines": {
+    "node": "11.0.0"
+  },
   "scripts": {
     "serve": "live-server public/",
     "build": "webpack",
