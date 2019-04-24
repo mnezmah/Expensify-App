@@ -140,7 +140,7 @@ test('should fetch the expenses from firebase', (done) => {
 
 test('should edit expense from firebase', (done) => {
   const store = createMockStore({});
-  const id = exdpenses[0].id;
+  const id = expenses[0].id;
   const updates = { amount: 21045 };
   store.dispatch(startEditExpense(id, updates)).then(() => {
     const actions = store.getActions();

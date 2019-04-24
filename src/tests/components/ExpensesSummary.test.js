@@ -1,6 +1,9 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, configure } from 'enzyme';
 import { ExpensesSummary } from '../../components/ExpensesSummary';
+import Adapter from 'enzyme-adapter-react-16';
+
+configure({ adapter: new Adapter() });
 
 test('should correctly render ExpensesSummary with 1 expense', () => {
   const wrapper = shallow(<ExpensesSummary expenseCount={1} expensesTotal={235} />);
