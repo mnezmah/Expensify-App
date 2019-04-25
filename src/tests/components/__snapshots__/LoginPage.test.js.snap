@@ -8,5 +8,6 @@ exports[`should render LoginPage 1`] = `
   <button>
     Login
   </button>
+  /p&gt;
 </div>
 `;
