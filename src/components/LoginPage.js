@@ -5,7 +5,7 @@ import { startLogin } from '../actions/auth.js';
 export const LoginPage = ({ startLogin }) => (
       <div>
       <h3>Login section</h3>
-        <button onClick={startLogin}>Login</button>/p>
+        <button onClick={startLogin}>Login</button>
       </div>
     );
 
