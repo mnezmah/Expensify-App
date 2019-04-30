@@ -11,9 +11,9 @@ test('should set uid for login', () => {
 });
 
 test('should clear uid for logout', () => {
-  const actio = {
+  const action = {
     type: 'LOGOUT'
   };
-  const state = authTeducer({ uid: 'anything'}, action);
+  const state = authReducer({ uid: 'anything'}, action);
   expect(state).toEqual({});
 });

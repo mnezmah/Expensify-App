@@ -1,4 +1,4 @@
-import { login, logout } from '../../actions/atuh';
+import { login, logout } from '../../actions/auth';
 
 test ('shopukd generate login action object', () => {
   const uid = 'abc123'
