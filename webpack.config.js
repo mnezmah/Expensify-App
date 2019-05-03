@@ -1,7 +1,7 @@
 // entry -> output
 const path = require('path');
 const ExtractTextgPlugin = require('extract-text-webpack-plugin');
-const webpack = require ('webpack');
+const webpack = require('webpack');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
@@ -19,38 +19,38 @@ module.exports = (env) => {
   const CSSExtract = new ExtractTextgPlugin('styles.css');
 
   return {
-    entry: './src/app.js',
-  output: {
-    path: path.join(__dirname, 'public', 'dist'),
-    filename: 'bundle.js'
-  },
-  // saying: whenewer you see and js file, run it through our app, but exclude node_modules
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use:{loader: 'babel-loader'}
-      },
-      {
-        test: /\.s?css$/,
-        use: CSSExtract.extract({
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                sourceMap: true
+    entry: ['babel-polyfill', './src/app.js'],
+    output: {
+      path: path.join(__dirname, 'public', 'dist'),
+      filename: 'bundle.js'
+    },
+    // saying: whenewer you see and js file, run it through our app, but exclude node_modules
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use: { loader: 'babel-loader' }
+        },
+        {
+          test: /\.s?css$/,
+          use: CSSExtract.extract({
+            use: [
+              {
+                loader: 'css-loader',
+                options: {
+                  sourceMap: true
+                }
+              },
+              {
+                loader: 'sass-loader',
+                options: {
+                  sourceMap: true
+                }
               }
-            },
-            { 
-              loader: 'sass-loader', 
-              options: {
-                sourceMap: true
-              }
-          }
-          ]
-        })
-      }]
+            ]
+          })
+        }]
     },
     plugins: [
       CSSExtract,
